@@ -24,12 +24,12 @@ GIT: Para poder clonar el repositorio.
 
 # Cómo compilar y ejecutar el juego
 Pasos a seguir:
-##1. Clonar el repositorio 
+## 1. Clonar el repositorio 
 ```
 git clone (https://github.com/Mateo-Falcon/Gandonia-proyecto-final)
 cd Gandonia-proyecto-final
 ```
-##2. Compilar el proyecto con el wrapper de Gradle incluido en LibGDX
+## 2. Compilar el proyecto con el wrapper de Gradle incluido en LibGDX
 Windows
 ```
 gradlew.bat build
@@ -40,7 +40,7 @@ Linux/MacOS
 ./gradlew build
 ```
 
-##3. Ejecutar el juego
+## 3. Ejecutar el juego
 Windows
 ```
 gradlew.bat lwjgl3:run

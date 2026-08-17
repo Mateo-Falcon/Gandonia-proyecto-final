@@ -11,7 +11,7 @@ La jugabilidad de Gandonia propone una experiencia de simulación y estrategia p
 Una vez resueltas las peticiones de la jornada, el rey se traslada al Cuarto Real, un espacio donde se darán varias opciones al jugador. Desde este lugar, el jugador puede elegir dormir para pasar al día siguiente o interactuar con el menú de guardado y carga de partidas. El flujo de juego continúa con este ritmo diario hasta alcanzar el séptimo día, momento en el que se define el destino de Gandonia en una tensa audiencia diplomática con un monarca extranjero. Conseguir la alianza clave para salvar al reino o caer ante la invasión de los bárbaros del norte será la consecuencia directa de cómo se hayan administrado los recursos y las relaciones políticas durante toda la semana.
 
 # Tecnologías utilizadas
-Para el desarrollo de este proyecto se usarán las siguientes tecnologías: el lenguaje Java en su versión 8 update 471, el framework LibGDX en su versión 1.14.2, la herramienta de configuración GDX Liftoff en su versión 1.14.2 y a futuro se implementará una base de datos relacional con SQLite en su versión 3.53.3. 
+Para el desarrollo de este proyecto se usarán las siguientes tecnologías: el lenguaje Java en su versión 21, el framework LibGDX en su versión 1.14.2, la herramienta de configuración GDX Liftoff en su versión 1.14.2 y a futuro se implementará una base de datos relacional con SQLite en su versión 3.53.3. 
 La plataforma objetivo es escritorio, mediante la librería lwjgl3.
 
 
@@ -19,14 +19,14 @@ La plataforma objetivo es escritorio, mediante la librería lwjgl3.
 # Requisitos Previos
 Para compilar y ejecutar este proyecto, asegúrese de tener instalado lo siguiente en su sistema:
 
-JDK (Java Development Kit): Debe tener instalado el JDK 8 o una versión superior compatible.
+JDK (Java Development Kit): Debe tener instalado el JDK 21 o una versión superior compatible.
 GIT: Para poder clonar el repositorio.
 
 # Cómo compilar y ejecutar el juego
 Pasos a seguir:
 ## 1. Clonar el repositorio 
 ```
-git clone (https://github.com/Mateo-Falcon/Gandonia-proyecto-final)
+git clone https://github.com/Mateo-Falcon/Gandonia-proyecto-final
 cd Gandonia-proyecto-final
 ```
 ## 2. Compilar el proyecto con el wrapper de Gradle incluido en LibGDX

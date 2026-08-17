@@ -14,8 +14,34 @@ Una vez resueltas las peticiones de la jornada, el rey se traslada al Cuarto Rea
 Para el desarrollo de este proyecto se usarán las siguientes tecnologías: el lenguaje Java en su versión 21, el framework LibGDX en su versión 1.14.2, la herramienta de configuración GDX Liftoff en su versión 1.14.2 y a futuro se implementará una base de datos relacional con SQLite en su versión 3.53.3. 
 La plataforma objetivo es escritorio, mediante la librería lwjgl3.
 
+## Base de datos mínima
+La base de datos planteada contará, mínimamente, con una tabla llamada "Partida", que incluirá el estado general del jugador, la jornada actual y las variables acumuladas del reino.
+### Tabla Partida
+- id_partida (INTEGER, PRIMARY KEY, AUTOINCREMENT): Identificador único de la partida guardada.
+- fecha_guardado (TEXT, NOT NULL): Marca temporal del momento del guardado. 
+- dia_actual (INTEGER, NOT NULL): Día en el que se encuentra el jugador (valores de 1 a 7).
+- oro (INTEGER, NOT NULL): Cantidad de oro disponible.
+- comida (INTEGER, NOT NULL): Unidades de alimento almacenadas.
+- soldados (INTEGER, NOT NULL): Cantidad de tropas defensivas.
+- legitimidad (INTEGER, NOT NULL): Porcentaje de apoyo político de Dalkion (0 a 100).
 
+## Base de datos deseable
+La base de datos deseable contará con una serie de tres tablas, incluida la tabla partida, agregando las tablas de diplomacia e historial_decision.
+### Tabla Diplomacia
+Guarda el estado de las relaciones bilaterales con las facciones y líderes extranjeros vecinos.
+- id_diplomacia (INTEGER, PRIMARY KEY, AUTOINCREMENT): Identificador del registro.
+- id_partida (INTEGER, NOT NULL, FOREIGN KEY): Referencia a la partida correspondiente.
+- faccion (TEXT, NOT NULL): Nombre del reino, tribu o ducado vecino.
+- nivel_relacion (INTEGER, NOT NULL): Valor numérico de relación (ej. -100 a 100).
 
+### Tabla Historial_Decision
+Registra la resolución tomada por el jugador en cada petición recibida durante el desarrollo de la partida.
+- id_decision (INTEGER, PRIMARY KEY, AUTOINCREMENT): Identificador único del registro de la decisión.
+- id_partida (INTEGER, NOT NULL, FOREIGN KEY): Partida a la cual pertenece la decisión.
+- id_peticion (INTEGER, NOT NULL, FOREIGN KEY): Petición sobre la cual se decidió.
+- aceptada (INTEGER, NOT NULL): Elección del usuario (1 si aceptó, 0 si rechazó).
+- dia_tomada (INTEGER, NOT NULL): Día en que se tomó la elección.
+- estado_mision (ENUM, NOT NULL): Estado actual de la consecuencia ('PENDIENTE', 'COMPLETADA', 'FALLADA').
 # Requisitos Previos
 Para compilar y ejecutar este proyecto, asegúrese de tener instalado lo siguiente en su sistema:
 

@@ -7,3 +7,6 @@ Todos los cambios notables dentro de este proyecto serán documentados en este a
 - Configuración del .gitignore
 - Creación del README
 - Creación de la Wiki
+- Creación del CHANGELOG
+- Inclusión de la propuesta completa y con imágenes
+  

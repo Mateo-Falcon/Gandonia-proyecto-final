@@ -34,14 +34,21 @@ Guarda el estado de las relaciones bilaterales con las facciones y líderes extr
 - faccion (TEXT, NOT NULL): Nombre del reino, tribu o ducado vecino.
 - nivel_relacion (INTEGER, NOT NULL): Valor numérico de relación (ej. -100 a 100).
 
+### Tabla Mision
+Registra el estado, progreso y seguimiento de las misiones temporales activas o finalizadas a lo largo de la partida.
+- id_mision (INTEGER, PRIMARY KEY, AUTOINCREMENT): Identificador único del registro de la misión.
+- id_partida (INTEGER, NOT NULL, FOREIGN KEY): Referencia a la partida correspondiente.
+- dia_inicio (INTEGER, NOT NULL): Día del juego (1 a 7) en el que el jugador aceptó la propuesta.
+- dias_duracion (INTEGER, NOT NULL): Cantidad de días requeridos para resolver el compromiso.
+- estado (TEXT, NOT NULL): Estado actual del compromiso ('ACTIVA', 'COMPLETADA', 'FALLADA').
+  
 ### Tabla Historial_Decision
-Registra la resolución tomada por el jugador en cada petición recibida durante el desarrollo de la partida.
+Registra la resolución tomada por el jugador en cada propuesta o misión durante el desarrollo de la partida.
 - id_decision (INTEGER, PRIMARY KEY, AUTOINCREMENT): Identificador único del registro de la decisión.
-- id_partida (INTEGER, NOT NULL, FOREIGN KEY): Partida a la cual pertenece la decisión.
-- id_peticion (INTEGER, NOT NULL, FOREIGN KEY): Petición sobre la cual se decidió.
+- id_partida (INTEGER, NOT NULL, FOREIGN KEY): Referencia a la partida correspondiente.
+- id_mision (INTEGER, NULL, FOREIGN KEY): Referencia opcional a la misión generada por la decisión (si aplica).
 - aceptada (INTEGER, NOT NULL): Elección del usuario (1 si aceptó, 0 si rechazó).
 - dia_tomada (INTEGER, NOT NULL): Día en que se tomó la elección.
-- estado_mision (ENUM, NOT NULL): Estado actual de la consecuencia ('PENDIENTE', 'COMPLETADA', 'FALLADA').
 # Requisitos Previos
 Para compilar y ejecutar este proyecto, asegúrese de tener instalado lo siguiente en su sistema:
 

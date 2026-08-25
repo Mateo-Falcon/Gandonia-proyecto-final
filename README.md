@@ -1,6 +1,6 @@
 # Gandonia
-Nombre del juego: Gandonia.
-Integrante del proyecto: Mateo Falcón.
+## Nombre del juego: Gandonia.
+## Integrante del proyecto: Mateo Falcón.
 
 # Trama
 Gandonia sitúa al jugador en la piel de Dalkion, un joven rey de 17 años que debe asumir de forma imprevista el trono tras la repentina muerte de su padre, Balixos II "el Grande", considerado el mejor gobernante de la dinastía Gandas. Sin la preparación adecuada y con el peso de un legado gigante sobre sus hombros, el joven monarca se encuentra casi completamente solo ante una tarea titánica: mantener la paz y defender las fronteras de su reino.
@@ -52,8 +52,8 @@ Registra la resolución tomada por el jugador en cada propuesta o misión durant
 # Requisitos Previos
 Para compilar y ejecutar este proyecto, asegúrese de tener instalado lo siguiente en su sistema:
 
-JDK (Java Development Kit): Debe tener instalado el JDK 21 o una versión superior compatible.
-GIT: Para poder clonar el repositorio.
+### JDK (Java Development Kit): Debe tener instalado el JDK 21 o una versión superior compatible.
+### GIT: Para poder clonar el repositorio.
 
 # Cómo compilar y ejecutar el juego
 Pasos a seguir:

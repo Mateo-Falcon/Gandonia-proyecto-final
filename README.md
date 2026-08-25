@@ -1,6 +1,6 @@
 # Gandonia
-## Nombre del juego: Gandonia.
-## Integrante del proyecto: Mateo Falcón.
+### Nombre del juego: Gandonia.
+### Integrante del proyecto: Mateo Falcón.
 
 # Trama
 Gandonia sitúa al jugador en la piel de Dalkion, un joven rey de 17 años que debe asumir de forma imprevista el trono tras la repentina muerte de su padre, Balixos II "el Grande", considerado el mejor gobernante de la dinastía Gandas. Sin la preparación adecuada y con el peso de un legado gigante sobre sus hombros, el joven monarca se encuentra casi completamente solo ante una tarea titánica: mantener la paz y defender las fronteras de su reino.

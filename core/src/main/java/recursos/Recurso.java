@@ -1,15 +1,41 @@
 package recursos;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 
-public abstract class Recurso {
+
+public abstract class Recurso extends Actor {
     private String nombre;
     private int cantidad;
     private Texture apariencia;
+    private Image icono;
+    private Label labelCantidad;
 
-    protected Recurso(String nombre, Texture apariencia) {
+    protected Recurso(String nombre, Texture apariencia, Skin skin) {
         this.nombre = nombre;
         this.cantidad = 100;
         this.apariencia = apariencia;
+        this.icono = new Image(apariencia);
+        this.labelCantidad = new Label(String.valueOf(this.cantidad), skin);
+    }
+
+    public void sumarCantidad(int valor) {
+        this.cantidad += valor;
+        actualizarLabel();
+    }
+
+    public void restarCantidad(int valor) {
+        this.cantidad -= valor;
+        if (this.cantidad < 0) this.cantidad = 0;
+        actualizarLabel();
+    }
+
+    private void actualizarLabel() {
+        this.labelCantidad.setText(String.valueOf(this.cantidad));
+    }
+
+    public int getCantidad() {
+        return cantidad;
     }
 }

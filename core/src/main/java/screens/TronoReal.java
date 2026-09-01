@@ -3,12 +3,17 @@ package screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.practica.Main;
 import personajes.*;
@@ -23,7 +28,9 @@ public class TronoReal extends PlayScreen {
     private static final float ALTO_ESCENARIO = 941f;
     private float anchoTrono = 130f;
     private float altoTrono = 246f;
+    private Skin skinBasica;
     private TablaRecursos tablaRecursos;
+    private TextButton btnAceptar;
     public TronoReal(Main game) {
         super(game);
     }
@@ -57,12 +64,22 @@ public class TronoReal extends PlayScreen {
         // Mitad de la pantalla (836) menos la mitad del ancho del personaje
         float posX = (ANCHO_ESCENARIO / 2f) - (anchoCalculado / 2f);
         float posY = 270f;
-        tablaRecursos = new TablaRecursos(crearSkinBasica());
+        skinBasica = crearSkinBasica();
+        tablaRecursos = new TablaRecursos(skinBasica);
 
+        btnAceptar = new TextButton("Aceptar", skinBasica);
+        btnAceptar.setSize(200,50);
+        btnAceptar.setPosition(300, 100);
+        btnAceptar.addListener(new ClickListener(){
+            public void clicked (InputEvent event, float x, float y){
+                tablaRecursos.getOro().restarCantidad(20);
+            }
+        });
         dalkion.setPosition(posX, posY);
         stage.addActor(fondo);
         stage.addActor(dalkion);
         stage.addActor(knight);
+        stage.addActor(btnAceptar);
         stage.addActor(tablaRecursos);
     }
 
@@ -77,6 +94,18 @@ public class TronoReal extends PlayScreen {
         labelStyle.font = fuente;
         labelStyle.fontColor = Color.WHITE;
         skin.add("default", labelStyle);
+
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(Color.DARK_GRAY);
+        pixmap.fill();
+        Texture texUp = new Texture(pixmap);
+        pixmap.dispose();
+
+        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
+        buttonStyle.font = fuente;
+        buttonStyle.fontColor = Color.WHITE;
+        buttonStyle.up = new TextureRegionDrawable(texUp); // Asigna el fondo
+        skin.add("default", buttonStyle); // Registra el nombre "default"
 
         return skin;
     }
@@ -107,11 +136,9 @@ public class TronoReal extends PlayScreen {
     @Override
     public void dispose() {
         stage.dispose();
-        if (fondoEscenario != null) {
-            fondoEscenario.dispose();
-        }
-        if (dalkion != null) {
-            dalkion.dispose();
-        }
+        if (skinBasica != null) skinBasica.dispose();
+        if (fondoEscenario != null) fondoEscenario.dispose();
+        if (dalkion != null) dalkion.dispose();
+        if (knight != null) knight.dispose();
     }
 }

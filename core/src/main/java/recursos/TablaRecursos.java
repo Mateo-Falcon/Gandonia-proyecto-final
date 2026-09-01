@@ -19,4 +19,8 @@ public class TablaRecursos extends Table {
         this.add(provision).padRight(20);
         this.add(soldadesca).padRight(20);
     }
+
+    public Oro getOro() {
+        return oro;
+    }
 }

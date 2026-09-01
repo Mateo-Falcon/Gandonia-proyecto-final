@@ -1,11 +1,10 @@
 package recursos;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 
 
-public abstract class Recurso extends Actor {
+public abstract class Recurso extends Table {
     private String nombre;
     private int cantidad;
     private Texture apariencia;
@@ -18,6 +17,8 @@ public abstract class Recurso extends Actor {
         this.apariencia = apariencia;
         this.icono = new Image(apariencia);
         this.labelCantidad = new Label(String.valueOf(this.cantidad), skin);
+        this.add(icono).size(64, 64).padRight(5);
+        this.add(labelCantidad);
     }
 
     public void sumarCantidad(int valor) {

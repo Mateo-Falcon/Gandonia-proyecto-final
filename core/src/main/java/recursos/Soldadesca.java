@@ -1,9 +1,10 @@
 package recursos;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class Soldadesca extends Recurso{
-    public Soldadesca(String nombre, Texture apariencia) {
-        super("Soldadesca", new Texture("soldadesca.png"));
+    public Soldadesca(Skin skin) {
+        super("Soldadesca", new Texture("soldadesca.png"), skin);
     }
 }

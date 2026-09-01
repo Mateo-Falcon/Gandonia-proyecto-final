@@ -1,13 +1,18 @@
 package screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.practica.Main;
 import personajes.*;
+import recursos.*;
 
 public class TronoReal extends PlayScreen {
     private Stage stage;
@@ -16,10 +21,9 @@ public class TronoReal extends PlayScreen {
     private Knight knight;
     private static final float ANCHO_ESCENARIO = 1672f;
     private static final float ALTO_ESCENARIO = 941f;
-
     private float anchoTrono = 130f;
     private float altoTrono = 246f;
-
+    private TablaRecursos tablaRecursos;
     public TronoReal(Main game) {
         super(game);
     }
@@ -52,13 +56,29 @@ public class TronoReal extends PlayScreen {
         // 3. CENTRADO DINÁMICO EN X:
         // Mitad de la pantalla (836) menos la mitad del ancho del personaje
         float posX = (ANCHO_ESCENARIO / 2f) - (anchoCalculado / 2f);
-
-        // 4. Posición Y (altura del asiento del trono)
         float posY = 270f;
+        tablaRecursos = new TablaRecursos(crearSkinBasica());
+
         dalkion.setPosition(posX, posY);
         stage.addActor(fondo);
         stage.addActor(dalkion);
         stage.addActor(knight);
+        stage.addActor(tablaRecursos);
+    }
+
+    private Skin crearSkinBasica() {
+        Skin skin = new Skin();
+        // 1. Creamos o cargamos una fuente
+        BitmapFont fuente = new BitmapFont(); // Usa la fuente por defecto de LibGDX (o podés usar FreeType)
+        // 2. Guardamos la fuente dentro de la skin
+        skin.add("default-font", fuente);
+        // 3. Creamos el estilo por defecto para los Labels
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = fuente;
+        labelStyle.fontColor = Color.WHITE;
+        skin.add("default", labelStyle);
+
+        return skin;
     }
 
     @Override

@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.practica.Main;
 import personajes.*;
+import peticionarios.Knight;
 import recursos.*;
 
 public class TronoReal extends PlayScreen {

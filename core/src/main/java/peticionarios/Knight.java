@@ -1,13 +1,13 @@
-package personajes;
+package peticionarios;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import utilidadesUI.GloboTexto;
 
-public class Knight extends Actor {
-    private Texture knightTexture;
+public class Knight extends Peticionario {
     private Animation<TextureRegion> knightAnimation;
     private float stateTime = 0f;
     private float velocidad = 50f;
@@ -18,8 +18,8 @@ public class Knight extends Actor {
     private static final float POSICION_DESTINO_X = 400f;
 
     public Knight(float x, float y) {
-        knightTexture = new Texture("BlackKnight.png");
-        TextureRegion knightRegion = new TextureRegion(knightTexture, ANCHO_SPRITESHEET, ALTO_SPRITESHEET);
+        super("Caballero menor", new Texture("BlackKnight.png"));
+        TextureRegion knightRegion = new TextureRegion(getApariencia(), ANCHO_SPRITESHEET, ALTO_SPRITESHEET);
         TextureRegion[][] temp = knightRegion.split(ANCHO_SPRITESHEET / 10, ALTO_SPRITESHEET / 5);
 
         TextureRegion[] knightFrames = new TextureRegion[temp[2].length];
@@ -34,6 +34,12 @@ public class Knight extends Actor {
 
         setPosition(x, y);
         setSize(anchoFrame * 6, altoFrame * 6);
+    }
+
+    @Override
+    public void hacerPeticion(GloboTexto globoTexto){
+        globoTexto.setTexto("Mi señor, unos bandidos han saqueado una casucha. Debemos mandar 5 soldados, una compensacion de 2 de oro y 8 de provisiones. ¿Lo hacemos?");
+
     }
 
     @Override
@@ -63,8 +69,8 @@ public class Knight extends Actor {
     }
 
     public void dispose() {
-        if (knightTexture != null) {
-            knightTexture.dispose();
+        if (getApariencia() != null) {
+            getApariencia().dispose();
         }
     }
 }

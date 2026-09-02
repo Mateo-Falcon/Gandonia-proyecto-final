@@ -1,5 +1,6 @@
 package screens;
 
+import botones.TablaBotones;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -30,7 +31,7 @@ public class TronoReal extends PlayScreen {
     private float altoTrono = 246f;
     private Skin skinBasica;
     private TablaRecursos tablaRecursos;
-    private TextButton btnAceptar;
+    private TablaBotones tablaBotones;
     public TronoReal(Main game) {
         super(game);
     }
@@ -66,11 +67,8 @@ public class TronoReal extends PlayScreen {
         float posY = 270f;
         skinBasica = crearSkinBasica();
         tablaRecursos = new TablaRecursos(skinBasica);
-
-        btnAceptar = new TextButton("Aceptar", skinBasica);
-        btnAceptar.setSize(200,50);
-        btnAceptar.setPosition(300, 100);
-        btnAceptar.addListener(new ClickListener(){
+        tablaBotones = new TablaBotones(skinBasica);
+        tablaBotones.getBtnAceptar().addListener(new ClickListener(){
             public void clicked (InputEvent event, float x, float y){
                 tablaRecursos.getOro().restarCantidad(20);
             }
@@ -79,7 +77,7 @@ public class TronoReal extends PlayScreen {
         stage.addActor(fondo);
         stage.addActor(dalkion);
         stage.addActor(knight);
-        stage.addActor(btnAceptar);
+        stage.addActor(tablaBotones);
         stage.addActor(tablaRecursos);
     }
 

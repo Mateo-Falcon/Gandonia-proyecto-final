@@ -24,6 +24,10 @@ public class MisionCaballero extends Mision{
         for (Recurso recurso : getRecursosRequeridos()){
         tablaRecursos.restarRecurso(recurso.getNombre(), recurso.getCantidad());
     }
+
+        for(Recurso recurso : getRecompensas()){
+            tablaRecursos.sumarRecurso(recurso.getNombre(), recurso.getCantidad());
+        }
     }
 
     @Override

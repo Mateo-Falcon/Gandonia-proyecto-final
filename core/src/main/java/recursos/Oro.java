@@ -6,6 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 public class Oro extends Recurso{
 
     public Oro(Skin skin) {
-        super("Oro", new Texture("oro.png"), skin);
+        super("Oro", new Texture("recursos/oro.png"), skin);
     }
 }

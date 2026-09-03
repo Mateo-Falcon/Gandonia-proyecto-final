@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.practica.Main;
+import misiones.TablaMisiones;
 import personajes.*;
 import peticionarios.Knight;
 import recursos.*;
@@ -33,6 +34,7 @@ public class TronoReal extends PlayScreen {
     private Skin skinBasica;
     private TablaRecursos tablaRecursos;
     private TablaBotones tablaBotones;
+    private TablaMisiones tablaMisiones;
     public TronoReal(Main game) {
         super(game);
     }
@@ -45,30 +47,22 @@ public class TronoReal extends PlayScreen {
         fondoEscenario = new Texture(Gdx.files.internal("TronoReal.png"));
         Image fondo = new Image(fondoEscenario);
         fondo.setSize(ANCHO_ESCENARIO, ALTO_ESCENARIO);
-
         dalkion = new Personaje();
         knight = new Knight(50f, 100f);
-        // 2. Definimos solo el ALTO que queremos que tenga (ej: 246 está bien)
         float altoDeseado = 246f;
-
-        // 3. Obtenemos el ancho original de la textura de Dalkion
         float anchoOriginal = dalkion.getApariencia().getWidth();
         float altoOriginal = dalkion.getApariencia().getHeight();
 
-        // 4. Calculamos la escala uniforme basada en el alto
+
         float escala = altoDeseado / altoOriginal;
         float anchoCalculado = anchoOriginal * escala;
-
-        // 5. Asignamos el tamaño escalado UNIFORMEMENTE
         dalkion.setSize(anchoCalculado, altoDeseado);
-
-        // 3. CENTRADO DINÁMICO EN X:
-        // Mitad de la pantalla (836) menos la mitad del ancho del personaje
         float posX = (ANCHO_ESCENARIO / 2f) - (anchoCalculado / 2f);
         float posY = 270f;
         skinBasica = crearSkinBasica();
         tablaRecursos = new TablaRecursos(skinBasica);
         tablaBotones = new TablaBotones(skinBasica);
+        tablaMisiones = new TablaMisiones(skinBasica);
         tablaBotones.getBtnAceptar().addListener(new ClickListener(){
             public void clicked (InputEvent event, float x, float y){
                 tablaRecursos.getOro().restarCantidad(20);
@@ -79,6 +73,7 @@ public class TronoReal extends PlayScreen {
         stage.addActor(dalkion);
         stage.addActor(knight);
         stage.addActor(tablaBotones);
+        stage.addActor(tablaMisiones);
         stage.addActor(tablaRecursos);
     }
 

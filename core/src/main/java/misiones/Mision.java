@@ -28,4 +28,8 @@ public abstract class Mision {
     protected abstract void cargarMision(Recurso recursoRequerido, Recurso recursoRecompensa);
     public abstract void aceptarMision(TablaRecursos tablaRecursos);
     public abstract void rechazarMision(TablaRecursos tablaRecursos);
+
+    protected String getNombre() {
+        return nombre;
+    }
 }

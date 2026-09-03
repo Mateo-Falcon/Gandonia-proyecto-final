@@ -36,6 +36,10 @@ public abstract class Recurso extends Table {
         this.labelCantidad.setText(String.valueOf(this.cantidad));
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
     public int getCantidad() {
         return cantidad;
     }

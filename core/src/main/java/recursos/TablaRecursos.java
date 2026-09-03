@@ -25,4 +25,40 @@ public class TablaRecursos extends Table {
     public Oro getOro() {
         return oro;
     }
+
+    public Provision getProvision() {
+        return provision;
+    }
+
+    public Soldadesca getSoldadesca() {
+        return soldadesca;
+    }
+
+    public Legitimidad getLegitimidad() {
+        return legitimidad;
+    }
+
+    public void restarRecurso(String nombre, int cantidad) {
+        if (nombre.equalsIgnoreCase("Oro")) {
+            oro.restarCantidad(cantidad);
+        } else if (nombre.equalsIgnoreCase("Provision")) {
+            provision.restarCantidad(cantidad);
+        } else if (nombre.equalsIgnoreCase("Soldadesca")) {
+            soldadesca.restarCantidad(cantidad);
+        } else if (nombre.equalsIgnoreCase("Legitimidad")) {
+            legitimidad.restarCantidad(cantidad);
+        }
+    }
+
+    public void sumarRecurso(String nombre, int cantidad) {
+        if (nombre.equalsIgnoreCase("Oro")) {
+            oro.sumarCantidad(cantidad);
+        } else if (nombre.equalsIgnoreCase("Provision")) {
+            provision.sumarCantidad(cantidad);
+        } else if (nombre.equalsIgnoreCase("Soldadesca")) {
+            soldadesca.sumarCantidad(cantidad);
+        } else if (nombre.equalsIgnoreCase("Legitimidad")) {
+            legitimidad.sumarCantidad(cantidad);
+        }
+    }
 }

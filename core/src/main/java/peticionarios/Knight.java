@@ -11,7 +11,7 @@ public class Knight extends Peticionario {
     private Animation<TextureRegion> knightAnimation;
     private float stateTime = 0f;
     private float velocidad = 50f;
-    private boolean seMueve = true; // Controla el estado de movimiento
+    private boolean seMueve = true;
 
     private static final int ANCHO_SPRITESHEET = 320;
     private static final int ALTO_SPRITESHEET = 160;
@@ -47,23 +47,19 @@ public class Knight extends Peticionario {
         super.act(delta);
 
         if (seMueve) {
-            // 1. Avanzar la posición X
             float nuevaX = getX() + velocidad * delta;
-
-            // 2. Comprobar si alcanzó o superó los 736 px
             if (nuevaX >= POSICION_DESTINO_X) {
-                setX(POSICION_DESTINO_X); // Fijar exactamente en 736
-                seMueve = false;         // Frenar movimiento
+                setX(POSICION_DESTINO_X);
+                seMueve = false;
             } else {
                 setX(nuevaX);
-                stateTime += delta;      // Solo avanza la animación si se está moviendo
+                stateTime += delta;
             }
         }
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // Al congelar stateTime en el 'act', getKeyFrame devuelve el frame estático correspondiente
         TextureRegion currentFrame = knightAnimation.getKeyFrame(stateTime, true);
         batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
     }

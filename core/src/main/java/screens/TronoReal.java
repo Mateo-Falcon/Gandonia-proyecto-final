@@ -9,20 +9,25 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.practica.Main;
+import misiones.Mision;
 import misiones.TablaMisiones;
 import personajes.*;
 import peticionarios.Knight;
 import recursos.*;
+import utilidadesUI.GloboTexto;
 
-public class TronoReal extends PlayScreen {
+public class TronoReal extends BaseScreen {
     private Stage stage;
     private Texture fondoEscenario;
     private Personaje dalkion;
@@ -35,6 +40,8 @@ public class TronoReal extends PlayScreen {
     private TablaRecursos tablaRecursos;
     private TablaBotones tablaBotones;
     private TablaMisiones tablaMisiones;
+    private GloboTexto globoTexto;
+
     public TronoReal(Main game) {
         super(game);
     }
@@ -42,64 +49,120 @@ public class TronoReal extends PlayScreen {
     @Override
     public void show() {
         stage = new Stage(new FitViewport(ANCHO_ESCENARIO, ALTO_ESCENARIO), game.batch);
+        skinBasica = crearSkinBasica();
         Gdx.input.setInputProcessor(stage);
 
         fondoEscenario = new Texture(Gdx.files.internal("TronoReal.png"));
         Image fondo = new Image(fondoEscenario);
         fondo.setSize(ANCHO_ESCENARIO, ALTO_ESCENARIO);
+
         dalkion = new Personaje();
-        knight = new Knight(50f, 100f);
+        knight = new Knight(50f, 100f, skinBasica);
+
         float altoDeseado = 246f;
         float anchoOriginal = dalkion.getApariencia().getWidth();
         float altoOriginal = dalkion.getApariencia().getHeight();
-
 
         float escala = altoDeseado / altoOriginal;
         float anchoCalculado = anchoOriginal * escala;
         dalkion.setSize(anchoCalculado, altoDeseado);
         float posX = (ANCHO_ESCENARIO / 2f) - (anchoCalculado / 2f);
         float posY = 270f;
-        skinBasica = crearSkinBasica();
+        dalkion.setPosition(posX, posY);
+
         tablaRecursos = new TablaRecursos(skinBasica);
         tablaBotones = new TablaBotones(skinBasica);
         tablaMisiones = new TablaMisiones(skinBasica);
-        tablaBotones.getBtnAceptar().addListener(new ClickListener(){
-            public void clicked (InputEvent event, float x, float y){
-                tablaRecursos.getOro().restarCantidad(20);
+        globoTexto = new GloboTexto(skinBasica, 400f);
+        knight.prepararPeticion(globoTexto);
+        tablaMisiones.setPosition(1520, 580);
+
+        tablaBotones.getBtnAceptar().addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (tablaBotones.getBtnAceptar().getTouchable() == Touchable.disabled) return;
+                Mision misionActual = knight.getMision();
+                if (misionActual != null) {
+                    misionActual.aceptarMision(tablaRecursos);
+                    tablaMisiones.mostrarMisionAceptada(misionActual);
+                    globoTexto.setTexto("¡A la orden, mi señor! Los 5 soldados parten de inmediato.");
+                    globoTexto.setPosition(knight.getX() - 50f, knight.getY() + knight.getHeight() + 10f);
+                    tablaBotones.getBtnAceptar().setTouchable(Touchable.disabled);
+                    tablaBotones.getBtnRechazar().setTouchable(Touchable.disabled);
+                    knight.addAction(Actions.sequence(
+                        Actions.delay(2.5f),
+                        Actions.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                knight.retirarse();
+                            }
+                        })
+                    ));
+                }
             }
         });
-        dalkion.setPosition(posX, posY);
+
+        tablaBotones.getBtnRechazar().addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (tablaBotones.getBtnRechazar().getTouchable() == Touchable.disabled) return;
+                Mision misionActual = knight.getMision();
+                if (misionActual != null) {
+                    misionActual.rechazarMision(tablaRecursos);
+                    tablaMisiones.mostrarMisionRechazada(misionActual);
+                    globoTexto.setTexto("Entendido, mi señor... Haremos lo que podamos.");
+                    globoTexto.setPosition(knight.getX() - 50f, knight.getY() + knight.getHeight() + 10f);
+                    tablaBotones.getBtnAceptar().setTouchable(Touchable.disabled);
+                    tablaBotones.getBtnRechazar().setTouchable(Touchable.disabled);
+                    knight.addAction(Actions.sequence(
+                        Actions.delay(2.5f),
+                        Actions.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                knight.retirarse();
+                            }
+                        })
+                    ));
+                }
+            }
+        });
+
         stage.addActor(fondo);
         stage.addActor(dalkion);
         stage.addActor(knight);
         stage.addActor(tablaBotones);
+        stage.addActor(globoTexto);
         stage.addActor(tablaMisiones);
         stage.addActor(tablaRecursos);
     }
 
     private Skin crearSkinBasica() {
         Skin skin = new Skin();
-        // 1. Creamos o cargamos una fuente
-        BitmapFont fuente = new BitmapFont(); // Usa la fuente por defecto de LibGDX (o podés usar FreeType)
-        // 2. Guardamos la fuente dentro de la skin
+
+        Pixmap pixmapWhite = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmapWhite.setColor(Color.WHITE);
+        pixmapWhite.fill();
+        Texture texWhite = new Texture(pixmapWhite);
+        pixmapWhite.dispose();
+
+        skin.add("white", texWhite, Texture.class);
+
+        TextureRegionDrawable drawableWhite = new TextureRegionDrawable(texWhite);
+        skin.add("white", drawableWhite, Drawable.class);
+
+        BitmapFont fuente = new BitmapFont();
         skin.add("default-font", fuente);
-        // 3. Creamos el estilo por defecto para los Labels
+
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = fuente;
         labelStyle.fontColor = Color.WHITE;
         skin.add("default", labelStyle);
 
-        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.DARK_GRAY);
-        pixmap.fill();
-        Texture texUp = new Texture(pixmap);
-        pixmap.dispose();
-
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.font = fuente;
         buttonStyle.fontColor = Color.WHITE;
-        buttonStyle.up = new TextureRegionDrawable(texUp); // Asigna el fondo
-        skin.add("default", buttonStyle); // Registra el nombre "default"
+        buttonStyle.up = drawableWhite.tint(Color.DARK_GRAY);
+        skin.add("default", buttonStyle);
 
         return skin;
     }

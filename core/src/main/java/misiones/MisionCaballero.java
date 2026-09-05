@@ -1,15 +1,18 @@
 package misiones;
 
-import recursos.Recurso;
+import recursos.*;
 import recursos.TablaRecursos;
 
 import java.util.ArrayList;
 
 public class MisionCaballero extends Mision{
-    public MisionCaballero(Recurso recursoRequerido, Recurso recompensa, int penalizacion) {
-        super("Mision de caballero menor");
+    public MisionCaballero(Oro oro, Soldadesca soldadesca, int penalizacion) {
+        super("Misión de caballero menor");
         this.penalizacion = penalizacion;
-        cargarMision(recursoRequerido, recompensa);
+        oro.setCantidad(2);
+        soldadesca.setCantidad(5);
+        agregarRecursoRequerido(oro);
+        agregarRecursoRequerido(soldadesca);
     }
 
 
@@ -32,5 +35,6 @@ public class MisionCaballero extends Mision{
 
     @Override
     public void rechazarMision(TablaRecursos tablaRecursos) {
+        tablaRecursos.restarRecurso("Legitimidad", this.penalizacion);
     }
 }

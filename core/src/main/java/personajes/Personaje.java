@@ -10,13 +10,11 @@ public class Personaje extends Actor {
 
     public Personaje() {
         this.nombre = "Dalkion Gandas";
-        // Asegurate de que "Dalkion_sentado.jpg" esté dentro de la carpeta assets/
         this.apariencia = new Texture("Dalkion_nuevo.png");
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // Renderiza la textura respetando la posición (X, Y) y el tamaño asignados al Actor
         batch.draw(apariencia, getX(), getY(), getWidth(), getHeight());
     }
 

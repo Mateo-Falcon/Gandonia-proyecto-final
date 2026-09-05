@@ -3,9 +3,9 @@ package screens;
 import com.badlogic.gdx.Screen;
 import com.practica.Main;
 
-public abstract class PlayScreen implements Screen {
+public abstract class BaseScreen implements Screen {
     protected Main game;
-    protected PlayScreen(Main game) {
+    protected BaseScreen(Main game) {
         this.game= game;
     }
     @Override

@@ -23,7 +23,9 @@ public abstract class Mision {
         return recompensas;
     }
 
-
+    public void agregarRecursoRequerido(Recurso recurso) {
+        this.recursosRequeridos.add(recurso);
+    }
 
     protected abstract void cargarMision(Recurso recursoRequerido, Recurso recursoRecompensa);
     public abstract void aceptarMision(TablaRecursos tablaRecursos);

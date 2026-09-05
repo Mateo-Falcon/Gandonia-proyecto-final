@@ -82,9 +82,10 @@ Linux/MacOS
 ```
 ./gradlew lwjgl3:run
 
-### Primer video del funcionamiento del juego
-https://youtu.be/cravAynhGqw
 ```
 
 # Enlace a la Wiki
 Para ver la propuesta completa haz clic [AQUÍ](https://github.com/Mateo-Falcon/Gandonia-proyecto-final/wiki)
+
+### Primer video del funcionamiento del juego
+https://youtu.be/cravAynhGqw

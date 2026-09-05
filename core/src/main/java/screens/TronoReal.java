@@ -74,8 +74,11 @@ public class TronoReal extends BaseScreen {
         tablaBotones = new TablaBotones(skinBasica);
         tablaMisiones = new TablaMisiones(skinBasica);
         globoTexto = new GloboTexto(skinBasica, 400f);
+        TextButton btnVolverMenu = new TextButton("Menú", skinBasica);
         knight.prepararPeticion(globoTexto);
         tablaMisiones.setPosition(1520, 580);
+        btnVolverMenu.setSize(120f, 40f);
+        btnVolverMenu.setPosition(20f, ALTO_ESCENARIO - 60f);
 
         tablaBotones.getBtnAceptar().addListener(new ClickListener() {
             @Override
@@ -126,6 +129,12 @@ public class TronoReal extends BaseScreen {
                 }
             }
         });
+        btnVolverMenu.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new MenuPrincipal(game));
+            }
+        });
 
         stage.addActor(fondo);
         stage.addActor(dalkion);
@@ -133,6 +142,7 @@ public class TronoReal extends BaseScreen {
         stage.addActor(tablaBotones);
         stage.addActor(globoTexto);
         stage.addActor(tablaMisiones);
+        stage.addActor(btnVolverMenu);
         stage.addActor(tablaRecursos);
     }
 

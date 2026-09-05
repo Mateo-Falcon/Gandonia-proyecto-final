@@ -81,6 +81,9 @@ gradlew.bat lwjgl3:run
 Linux/MacOS
 ```
 ./gradlew lwjgl3:run
+
+### Primer video del funcionamiento del juego
+https://youtu.be/cravAynhGqw
 ```
 
 # Enlace a la Wiki

@@ -1,4 +1,4 @@
-# Changelog
+git# Changelog
 Todos los cambios notables dentro de este proyecto serán documentados en este archivo.
 ## Versión [0.1.0] - 2026-07-16
 

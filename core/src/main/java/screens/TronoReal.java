@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.gandonia.Main;
+import gestores.GestorEntrada;
 import misiones.Mision;
 import misiones.TablaMisiones;
 import personajes.*;
@@ -41,7 +42,7 @@ public class TronoReal extends BaseScreen {
     private TablaBotones tablaBotones;
     private TablaMisiones tablaMisiones;
     private GloboTexto globoTexto;
-
+    private GestorEntrada gestorEntrada;
     public TronoReal(Main game) {
         super(game);
     }
@@ -74,67 +75,18 @@ public class TronoReal extends BaseScreen {
         tablaBotones = new TablaBotones(skinBasica);
         tablaMisiones = new TablaMisiones(skinBasica);
         globoTexto = new GloboTexto(skinBasica, 400f);
+        gestorEntrada = new GestorEntrada();
         TextButton btnVolverMenu = new TextButton("Menú", skinBasica);
+
         knight.prepararPeticion(globoTexto);
         tablaMisiones.setPosition(1520, 580);
         btnVolverMenu.setSize(120f, 40f);
         btnVolverMenu.setPosition(20f, ALTO_ESCENARIO - 60f);
 
-        tablaBotones.getBtnAceptar().addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (tablaBotones.getBtnAceptar().getTouchable() == Touchable.disabled) return;
-                Mision misionActual = knight.getMision();
-                if (misionActual != null) {
-                    misionActual.aceptarMision(tablaRecursos);
-                    tablaMisiones.mostrarMisionAceptada(misionActual);
-                    globoTexto.setTexto("¡A la orden, mi señor! Los 5 soldados parten de inmediato.");
-                    globoTexto.setPosition(knight.getX() - 50f, knight.getY() + knight.getHeight() + 10f);
-                    tablaBotones.getBtnAceptar().setTouchable(Touchable.disabled);
-                    tablaBotones.getBtnRechazar().setTouchable(Touchable.disabled);
-                    knight.addAction(Actions.sequence(
-                        Actions.delay(2.5f),
-                        Actions.run(new Runnable() {
-                            @Override
-                            public void run() {
-                                knight.retirarse();
-                            }
-                        })
-                    ));
-                }
-            }
-        });
+        gestorEntrada.aceptarMision(tablaBotones, knight, tablaRecursos, tablaMisiones, globoTexto);
+        gestorEntrada.rechazarMision(tablaBotones, knight, tablaRecursos, tablaMisiones, globoTexto);
+        gestorEntrada.volverMenu(game, btnVolverMenu);
 
-        tablaBotones.getBtnRechazar().addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (tablaBotones.getBtnRechazar().getTouchable() == Touchable.disabled) return;
-                Mision misionActual = knight.getMision();
-                if (misionActual != null) {
-                    misionActual.rechazarMision(tablaRecursos);
-                    tablaMisiones.mostrarMisionRechazada(misionActual);
-                    globoTexto.setTexto("Entendido, mi señor... Haremos lo que podamos.");
-                    globoTexto.setPosition(knight.getX() - 50f, knight.getY() + knight.getHeight() + 10f);
-                    tablaBotones.getBtnAceptar().setTouchable(Touchable.disabled);
-                    tablaBotones.getBtnRechazar().setTouchable(Touchable.disabled);
-                    knight.addAction(Actions.sequence(
-                        Actions.delay(2.5f),
-                        Actions.run(new Runnable() {
-                            @Override
-                            public void run() {
-                                knight.retirarse();
-                            }
-                        })
-                    ));
-                }
-            }
-        });
-        btnVolverMenu.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new MenuPrincipal(game));
-            }
-        });
 
         stage.addActor(fondo);
         stage.addActor(dalkion);

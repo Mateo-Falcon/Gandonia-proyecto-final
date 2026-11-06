@@ -25,6 +25,7 @@ import misiones.Mision;
 import misiones.TablaMisiones;
 import personajes.*;
 import peticionarios.Knight;
+import peticionarios.Peticionario;
 import recursos.*;
 import utilidadesUI.GloboTexto;
 
@@ -133,7 +134,6 @@ public class TronoReal extends BaseScreen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         stage.act(delta);
         stage.draw();
     }

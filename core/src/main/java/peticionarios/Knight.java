@@ -114,6 +114,10 @@ public class Knight extends Peticionario {
         }
     }
 
+    public boolean getMovimiento(){
+        return seMueve;
+    }
+
     public void dispose() {
         if (getApariencia() != null) {
             getApariencia().dispose();

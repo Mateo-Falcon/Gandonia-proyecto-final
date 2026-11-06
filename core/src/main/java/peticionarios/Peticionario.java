@@ -8,10 +8,12 @@ import utilidadesUI.GloboTexto;
 public abstract class Peticionario extends Actor {
     private String nombre;
     private Texture apariencia;
+    private boolean seMueve;
     private Mision mision;
     protected Peticionario(String nombre, Texture apariencia, Mision mision) {
         this.nombre = nombre;
         this.apariencia = apariencia;
+        this.seMueve = false;
         this.mision = mision;
     }
 

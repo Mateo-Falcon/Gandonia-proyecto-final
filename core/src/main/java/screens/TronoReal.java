@@ -71,6 +71,7 @@ public class TronoReal extends BaseScreen {
         float posY = 270f;
         dalkion.setPosition(posX, posY);
 
+        reino = new Reino();
         tablaRecursos = new TablaRecursos(skinBasica, reino);
         tablaBotones = new TablaBotones(skinBasica);
         tablaMisiones = new TablaMisiones(skinBasica);

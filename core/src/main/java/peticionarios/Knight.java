@@ -24,12 +24,8 @@ public class Knight extends Peticionario {
     private static final int ALTO_SPRITESHEET = 160;
     private static final float POSICION_DESTINO_X = 400f;
 
-    public Knight(float x, float y, Skin skin) {
-        super("Caballero menor", new Texture("BlackKnight.png"), new MisionCaballero(
-            new Oro(skin),
-            new Soldadesca(skin),
-            5
-        ));
+    public Knight(float x, float y) {
+        super("Caballero menor", new Texture("BlackKnight.png"), new MisionCaballero());
 
         TextureRegion knightRegion = new TextureRegion(getApariencia(), ANCHO_SPRITESHEET, ALTO_SPRITESHEET);
         TextureRegion[][] temp = knightRegion.split(ANCHO_SPRITESHEET / 10, ALTO_SPRITESHEET / 5);

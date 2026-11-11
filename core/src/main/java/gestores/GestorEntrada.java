@@ -10,20 +10,21 @@ import com.gandonia.Main;
 import misiones.Mision;
 import misiones.TablaMisiones;
 import peticionarios.*;
+import recursos.Reino;
 import recursos.TablaRecursos;
 import screens.MenuPrincipal;
 import utilidadesUI.GloboTexto;
 
 public class GestorEntrada {
 
-    public void aceptarMision (TablaBotones tablaBotones, Knight knight, TablaRecursos tablaRecursos, TablaMisiones tablaMisiones, GloboTexto globoTexto){
+    public void aceptarMision (TablaBotones tablaBotones, Knight knight, TablaRecursos tablaRecursos, TablaMisiones tablaMisiones, GloboTexto globoTexto, Reino reino){
         tablaBotones.getBtnAceptar().addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (tablaBotones.getBtnAceptar().getTouchable() == Touchable.disabled) return;
                 Mision misionActual = knight.getMision();
                 if (misionActual != null) {
-                    misionActual.aceptarMision(tablaRecursos);
+                    misionActual.aceptarMision(reino);
                     tablaMisiones.mostrarMisionAceptada(misionActual);
                     globoTexto.setTexto("¡A la orden, mi señor! Los 5 soldados parten de inmediato.");
                     globoTexto.setPosition(knight.getX() - 50f, knight.getY() + knight.getHeight() + 10f);
@@ -43,14 +44,14 @@ public class GestorEntrada {
         });
     }
 
-    public void rechazarMision (TablaBotones tablaBotones, Knight knight, TablaRecursos tablaRecursos, TablaMisiones tablaMisiones, GloboTexto globoTexto) {
+    public void rechazarMision (TablaBotones tablaBotones, Knight knight, TablaRecursos tablaRecursos, TablaMisiones tablaMisiones, GloboTexto globoTexto, Reino reino) {
         tablaBotones.getBtnRechazar().addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (tablaBotones.getBtnRechazar().getTouchable() == Touchable.disabled) return;
                 Mision misionActual = knight.getMision();
                 if (misionActual != null) {
-                    misionActual.rechazarMision(tablaRecursos);
+                    misionActual.rechazarMision(reino);
                     tablaMisiones.mostrarMisionRechazada(misionActual);
                     globoTexto.setTexto("Entendido, mi señor... Haremos lo que podamos.");
                     globoTexto.setPosition(knight.getX() - 50f, knight.getY() + knight.getHeight() + 10f);

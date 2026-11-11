@@ -1,35 +1,34 @@
 package misiones;
 
-import recursos.Recurso;
-import recursos.TablaRecursos;
-
-import java.util.ArrayList;
+import recursos.Costo;
+import recursos.Reino;
+import recursos.TipoRecurso;
 
 public abstract class Mision {
-    private String nombre;
-    private ArrayList <Recurso> recursosRequeridos = new ArrayList<>();
-    private ArrayList <Recurso> recompensas = new ArrayList<>();
-    protected int penalizacion;
+    private final String nombre;
+    private final Costo[] requisitos;
+    private final Costo[] recompensas;
+    private final int penalizacion;
 
-    protected Mision(String nombre) {
+    protected Mision(String nombre, Costo[] requisitos, Costo[] recompensas, int penalizacion) {
         this.nombre = nombre;
+        this.requisitos = requisitos;
+        this.recompensas = recompensas;
+        this.penalizacion = penalizacion;
     }
 
-    protected ArrayList<Recurso> getRecursosRequeridos() {
-        return recursosRequeridos;
+    public void aceptarMision(Reino reino) {
+        for (Costo requisito : requisitos) {
+            reino.restar(requisito.getTipoRecurso(), requisito.getCantidad());
+        }
+        for (Costo recompensa : recompensas) {
+            reino.sumar(recompensa.getTipoRecurso(), recompensa.getCantidad());
+        }
     }
 
-    protected ArrayList<Recurso> getRecompensas() {
-        return recompensas;
+    public void rechazarMision(Reino reino) {
+        reino.restar(TipoRecurso.LEGITIMIDAD, penalizacion);
     }
-
-    public void agregarRecursoRequerido(Recurso recurso) {
-        this.recursosRequeridos.add(recurso);
-    }
-
-    protected abstract void cargarMision(Recurso recursoRequerido, Recurso recursoRecompensa);
-    public abstract void aceptarMision(TablaRecursos tablaRecursos);
-    public abstract void rechazarMision(TablaRecursos tablaRecursos);
 
     protected String getNombre() {
         return nombre;

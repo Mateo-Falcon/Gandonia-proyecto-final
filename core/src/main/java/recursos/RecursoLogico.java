@@ -1,24 +1,32 @@
 package recursos;
 
-public class RecursoLogico {
-    private String nombre;
+    public class RecursoLogico {
+    private TipoRecurso tipoRecurso;
     private int cantidad;
 
-    protected RecursoLogico(int cantidad, String nombre) {
-        this.cantidad = cantidad;
-        this.nombre = nombre;
+    public RecursoLogico(TipoRecurso tipoRecurso) {
+        this.tipoRecurso = tipoRecurso;
+        this.cantidad = 100;
+
     }
 
     public String getNombre() {
-        return nombre;
+        return tipoRecurso.getNombre();
     }
 
     public int getCantidad() {
         return cantidad;
     }
 
+    public int restarCantidad(int monto){
+        this.cantidad-=monto;
+        if(this.cantidad < 0) this.cantidad = 0;
+        return this.cantidad;
+    }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public int sumarCantidad(int monto){
+        this.cantidad+=monto;
+        if(this.cantidad>100) this.cantidad = 100;
+        return this.cantidad;
     }
 }

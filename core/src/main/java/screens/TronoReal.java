@@ -36,14 +36,13 @@ public class TronoReal extends BaseScreen {
     private Knight knight;
     private static final float ANCHO_ESCENARIO = 1672f;
     private static final float ALTO_ESCENARIO = 941f;
-    private float anchoTrono = 130f;
-    private float altoTrono = 246f;
     private Skin skinBasica;
     private TablaRecursos tablaRecursos;
     private TablaBotones tablaBotones;
     private TablaMisiones tablaMisiones;
     private GloboTexto globoTexto;
     private GestorEntrada gestorEntrada;
+    private Reino reino;
     public TronoReal(Main game) {
         super(game);
     }
@@ -59,7 +58,7 @@ public class TronoReal extends BaseScreen {
         fondo.setSize(ANCHO_ESCENARIO, ALTO_ESCENARIO);
 
         dalkion = new Personaje();
-        knight = new Knight(50f, 100f, skinBasica);
+        knight = new Knight(50f, 100f);
 
         float altoDeseado = 246f;
         float anchoOriginal = dalkion.getApariencia().getWidth();
@@ -72,7 +71,7 @@ public class TronoReal extends BaseScreen {
         float posY = 270f;
         dalkion.setPosition(posX, posY);
 
-        tablaRecursos = new TablaRecursos(skinBasica);
+        tablaRecursos = new TablaRecursos(skinBasica, reino);
         tablaBotones = new TablaBotones(skinBasica);
         tablaMisiones = new TablaMisiones(skinBasica);
         globoTexto = new GloboTexto(skinBasica, 400f);
@@ -84,8 +83,8 @@ public class TronoReal extends BaseScreen {
         btnVolverMenu.setSize(120f, 40f);
         btnVolverMenu.setPosition(20f, ALTO_ESCENARIO - 60f);
 
-        gestorEntrada.aceptarMision(tablaBotones, knight, tablaRecursos, tablaMisiones, globoTexto);
-        gestorEntrada.rechazarMision(tablaBotones, knight, tablaRecursos, tablaMisiones, globoTexto);
+        gestorEntrada.aceptarMision(tablaBotones, knight, tablaRecursos, tablaMisiones, globoTexto, reino);
+        gestorEntrada.rechazarMision(tablaBotones, knight, tablaRecursos, tablaMisiones, globoTexto, reino);
         gestorEntrada.volverMenu(game, btnVolverMenu);
 
 
@@ -155,9 +154,10 @@ public class TronoReal extends BaseScreen {
     @Override
     public void dispose() {
         stage.dispose();
-        if (skinBasica != null) skinBasica.dispose();
-        if (fondoEscenario != null) fondoEscenario.dispose();
-        if (dalkion != null) dalkion.dispose();
-        if (knight != null) knight.dispose();
+        skinBasica.dispose();
+        fondoEscenario.dispose();
+        dalkion.dispose();
+        knight.dispose();
+        tablaRecursos.dispose();
     }
 }

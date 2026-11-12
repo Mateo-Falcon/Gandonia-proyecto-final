@@ -17,12 +17,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.gandonia.Main;
+import gestores.GestorEntrada;
 
 public class MenuPrincipal extends BaseScreen {
     private Stage stage;
     private Skin skin;
     private static final float ANCHO_ESCENARIO = 1672f;
     private static final float ALTO_ESCENARIO = 941f;
+    private GestorEntrada gestorEntrada;
 
     public MenuPrincipal(Main game) {
         super(game);
@@ -33,6 +35,7 @@ public class MenuPrincipal extends BaseScreen {
         stage = new Stage(new FitViewport(ANCHO_ESCENARIO, ALTO_ESCENARIO), game.batch);
         skin = crearSkinBasica();
         Gdx.input.setInputProcessor(stage);
+        gestorEntrada = new GestorEntrada();
 
         Table tablaMenu = new Table();
         tablaMenu.setFillParent(true);
@@ -44,19 +47,8 @@ public class MenuPrincipal extends BaseScreen {
         TextButton btnJugar = new TextButton("JUGAR", skin);
         TextButton btnSalir = new TextButton("SALIR", skin);
 
-        btnJugar.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new TronoReal(game));
-            }
-        });
-
-        btnSalir.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.exit();
-            }
-        });
+       gestorEntrada.jugar(btnJugar, game);
+       gestorEntrada.salir(btnSalir);
 
         tablaMenu.add(titulo).padBottom(50f).row();
         tablaMenu.add(btnJugar).width(300f).height(60f).padBottom(20f).row();

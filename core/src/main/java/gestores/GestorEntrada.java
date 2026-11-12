@@ -1,6 +1,7 @@
 package gestores;
 
 import botones.TablaBotones;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -13,6 +14,7 @@ import peticionarios.*;
 import recursos.Reino;
 import recursos.TablaRecursos;
 import screens.MenuPrincipal;
+import screens.TronoReal;
 import utilidadesUI.GloboTexto;
 
 public class GestorEntrada {
@@ -75,6 +77,24 @@ public class GestorEntrada {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new MenuPrincipal(game));
+            }
+        });
+    }
+
+    public void jugar(TextButton btnJugar, Main game){
+        btnJugar.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new TronoReal(game));
+            }
+        });
+    }
+
+    public void salir(TextButton btnSalir){
+        btnSalir.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
             }
         });
     }

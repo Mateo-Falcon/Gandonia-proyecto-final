@@ -5,10 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import misiones.MisionCaballero;
-import recursos.Oro;
-import recursos.Soldadesca;
 import utilidadesUI.GloboTexto;
 
 public class Knight extends Peticionario {
@@ -17,7 +14,6 @@ public class Knight extends Peticionario {
     private float velocidad = 50f;
     private boolean seMueve = true;
     private boolean seVa = false;
-    private boolean peticionHecha = false;
     private GloboTexto globoTextoRef;
 
     private static final int ANCHO_SPRITESHEET = 320;
@@ -48,6 +44,7 @@ public class Knight extends Peticionario {
         this.globoTextoRef = globoTexto;
     }
 
+    @Override
     public void retirarse() {
         this.seVa = true;
         this.seMueve = true;
@@ -57,21 +54,8 @@ public class Knight extends Peticionario {
     }
 
     @Override
-    public void hacerPeticion(GloboTexto globoTexto) {
-        if (globoTexto != null) {
-            globoTexto.setTexto(
-                "Mi señor, unos bandidos han saqueado una casucha.\n" +
-                    "Debemos mandar 5 soldados y una compensación de 2 de oro. ¿Lo hacemos?"
-            );
-            globoTexto.setPosition(getX() - 50f, getY() + getHeight() + 10f);
-            globoTexto.setVisible(true);
-        }
-    }
-
-    @Override
     public void act(float delta) {
         super.act(delta);
-
         if (seMueve) {
             stateTime += delta;
             if (seVa) {
@@ -86,9 +70,8 @@ public class Knight extends Peticionario {
                 }
             }
         } else {
-            if (!peticionHecha && globoTextoRef != null) {
-                hacerPeticion(globoTextoRef);
-                peticionHecha = true;
+            if (globoTextoRef != null) {
+                presentarPeticion(globoTextoRef);
             }
         }
     }

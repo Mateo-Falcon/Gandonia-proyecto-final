@@ -84,8 +84,9 @@ public class TronoReal extends BaseScreen {
         btnVolverMenu.setSize(120f, 40f);
         btnVolverMenu.setPosition(20f, ALTO_ESCENARIO - 60f);
 
-        gestorEntrada.aceptarMision(tablaBotones, knight, tablaRecursos, tablaMisiones, globoTexto, reino);
-        gestorEntrada.rechazarMision(tablaBotones, knight, tablaRecursos, tablaMisiones, globoTexto, reino);
+        gestorEntrada.setPeticionarioActual(knight);
+        gestorEntrada.aceptarMision(tablaBotones, tablaMisiones, globoTexto, reino);
+        gestorEntrada.rechazarMision(tablaBotones, tablaMisiones, globoTexto, reino);
         gestorEntrada.volverMenu(game, btnVolverMenu);
 
 

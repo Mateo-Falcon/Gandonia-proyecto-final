@@ -6,12 +6,18 @@ import recursos.TipoRecurso;
 
 public abstract class Mision {
     private final String nombre;
+    private final String textoPeticion;
+    private final String respuestaAceptada;
+    private final String respuestaRechazada;
     private final Costo[] requisitos;
     private final Costo[] recompensas;
     private final int penalizacion;
 
-    protected Mision(String nombre, Costo[] requisitos, Costo[] recompensas, int penalizacion) {
+    protected Mision(String nombre, String textoPeticion, String respuestaAceptada, String respuestaRechazada, Costo[] requisitos, Costo[] recompensas, int penalizacion) {
         this.nombre = nombre;
+        this.textoPeticion = textoPeticion;
+        this.respuestaAceptada = respuestaAceptada;
+        this.respuestaRechazada = respuestaRechazada;
         this.requisitos = requisitos;
         this.recompensas = recompensas;
         this.penalizacion = penalizacion;
@@ -26,6 +32,9 @@ public abstract class Mision {
         }
     }
 
+    public String getTextoPeticion() { return textoPeticion; }
+    public String getRespuestaAceptada() { return respuestaAceptada; }
+    public String getRespuestaRechazada() { return respuestaRechazada; }
     public void rechazarMision(Reino reino) {
         reino.restar(TipoRecurso.LEGITIMIDAD, penalizacion);
     }

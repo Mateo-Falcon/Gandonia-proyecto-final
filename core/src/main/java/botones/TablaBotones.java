@@ -3,6 +3,7 @@ package botones;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 public class TablaBotones extends Table {
     private TextButton btnAceptar;
@@ -24,5 +25,19 @@ public class TablaBotones extends Table {
 
     public TextButton getBtnRechazar() {
         return btnRechazar;
+    }
+
+    public void habilitarBotones() {
+        btnAceptar.setTouchable(Touchable.enabled);
+        btnRechazar.setTouchable(Touchable.enabled);
+        btnAceptar.getColor().a = 1f;
+        btnRechazar.getColor().a = 1f;
+    }
+
+    public void deshabilitarBotones() {
+        btnAceptar.setTouchable(Touchable.disabled);
+        btnRechazar.setTouchable(Touchable.disabled);
+        btnAceptar.getColor().a = 0.4f;
+        btnRechazar.getColor().a = 0.4f;
     }
 }

@@ -1,5 +1,6 @@
 package com.gandonia;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import screens.MenuPrincipal;
 
@@ -19,7 +20,16 @@ public class Main extends Game {
     }
 
     @Override
+    public void setScreen(Screen nuevaPantalla) {
+        Screen pantallaAnterior = getScreen();
+        super.setScreen(nuevaPantalla);
+        if (pantallaAnterior != null && pantallaAnterior != nuevaPantalla) {
+            pantallaAnterior.dispose();
+        }
+    }
+    @Override
     public void dispose() {
+        getScreen().dispose();
         batch.dispose();
     }
 }

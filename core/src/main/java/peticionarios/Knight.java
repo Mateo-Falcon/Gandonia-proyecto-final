@@ -60,6 +60,9 @@ public class Knight extends Peticionario {
             stateTime += delta;
             if (seVa) {
                 setX(getX() - velocidad * delta);
+                if (getX() + getWidth() < 0) {
+                    remove();
+                }
             } else {
                 float nuevaX = getX() + velocidad * delta;
                 if (nuevaX >= POSICION_DESTINO_X) {
@@ -81,13 +84,11 @@ public class Knight extends Peticionario {
         if (knightAnimation != null) {
             TextureRegion currentFrame = knightAnimation.getKeyFrame(stateTime, true);
             if (currentFrame != null) {
-                TextureRegion frameADibujar = new TextureRegion(currentFrame);
-                if (seVa) {
-                    frameADibujar.flip(true, false);
-                }
                 Color color = getColor();
                 batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
-                batch.draw(frameADibujar, getX(), getY(), getWidth(), getHeight());
+                float ancho = seVa ? -getWidth() : getWidth();
+                float x = seVa ? getX() + getWidth() : getX();
+                batch.draw(currentFrame, x, getY(), ancho, getHeight());
                 batch.setColor(Color.WHITE);
             }
         }
@@ -98,8 +99,6 @@ public class Knight extends Peticionario {
     }
 
     public void dispose() {
-        if (getApariencia() != null) {
-            getApariencia().dispose();
-        }
+        getApariencia().dispose();
     }
 }

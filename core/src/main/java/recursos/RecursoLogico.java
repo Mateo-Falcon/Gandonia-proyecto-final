@@ -26,7 +26,11 @@ package recursos;
 
     public int sumarCantidad(int monto){
         this.cantidad+=monto;
-        if(this.cantidad>100) this.cantidad = 100;
+        if(tipoRecurso == TipoRecurso.LEGITIMIDAD) {
+            if(this.cantidad>100) this.cantidad = 100;
+        } else {
+            if (this.cantidad > 500) this.cantidad = 500;
+        }
         return this.cantidad;
     }
 }

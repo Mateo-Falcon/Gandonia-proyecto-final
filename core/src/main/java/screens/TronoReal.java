@@ -7,30 +7,23 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.gandonia.Main;
 import gestores.GestorEntrada;
-import misiones.Mision;
 import misiones.TablaMisiones;
 import personajes.*;
+import peticionarios.GestorPeticionarios;
 import peticionarios.Knight;
-import peticionarios.Peticionario;
 import recursos.*;
 import utilidadesUI.GloboTexto;
-
 public class TronoReal extends BaseScreen {
     private Stage stage;
     private Texture fondoEscenario;
     private Personaje dalkion;
-    private Knight knight;
     private static final float ANCHO_ESCENARIO = 1672f;
     private static final float ALTO_ESCENARIO = 941f;
     private Skin skinBasica;
@@ -40,6 +33,7 @@ public class TronoReal extends BaseScreen {
     private GloboTexto globoTexto;
     private GestorEntrada gestorEntrada;
     private Reino reino;
+    private GestorPeticionarios gestorPeticionarios;
     public TronoReal(Main game) {
         super(game);
     }
@@ -55,7 +49,6 @@ public class TronoReal extends BaseScreen {
         fondo.setSize(ANCHO_ESCENARIO, ALTO_ESCENARIO);
 
         dalkion = new Personaje();
-        knight = new Knight(50f, 100f);
 
         float altoDeseado = 246f;
         float anchoOriginal = dalkion.getApariencia().getWidth();
@@ -74,14 +67,11 @@ public class TronoReal extends BaseScreen {
         tablaMisiones = new TablaMisiones(skinBasica);
         globoTexto = new GloboTexto(skinBasica, 400f);
         gestorEntrada = new GestorEntrada();
+        gestorPeticionarios = new GestorPeticionarios(this.stage, globoTexto, gestorEntrada);
         TextButton btnVolverMenu = new TextButton("Menú", skinBasica);
-
-        knight.prepararPeticion(globoTexto);
         tablaMisiones.setPosition(1520, 580);
         btnVolverMenu.setSize(120f, 40f);
         btnVolverMenu.setPosition(20f, ALTO_ESCENARIO - 60f);
-
-        gestorEntrada.setPeticionarioActual(knight);
         gestorEntrada.aceptarMision(tablaBotones, tablaMisiones, globoTexto, reino, this.stage, skinBasica);
         gestorEntrada.rechazarMision(tablaBotones, tablaMisiones, globoTexto, reino);
         gestorEntrada.volverMenu(game, btnVolverMenu);
@@ -89,12 +79,12 @@ public class TronoReal extends BaseScreen {
 
         stage.addActor(fondo);
         stage.addActor(dalkion);
-        stage.addActor(knight);
         stage.addActor(tablaBotones);
         stage.addActor(globoTexto);
         stage.addActor(tablaMisiones);
         stage.addActor(btnVolverMenu);
         stage.addActor(tablaRecursos);
+        gestorPeticionarios.iniciarJornada();
     }
 
     private Skin crearSkinBasica() {
@@ -138,6 +128,7 @@ public class TronoReal extends BaseScreen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
+        gestorPeticionarios.actualizar();
         stage.draw();
     }
 
@@ -161,7 +152,7 @@ public class TronoReal extends BaseScreen {
         skinBasica.dispose();
         fondoEscenario.dispose();
         dalkion.dispose();
-        knight.dispose();
         tablaRecursos.dispose();
+        gestorPeticionarios.dispose();
     }
 }

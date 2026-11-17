@@ -1,104 +1,15 @@
+
 package peticionarios;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import misiones.MisionCaballero;
-import utilidadesUI.GloboTexto;
 
-public class Knight extends Peticionario {
-    private Animation<TextureRegion> knightAnimation;
-    private float stateTime = 0f;
-    private float velocidad = 50f;
-    private boolean seMueve = true;
-    private boolean seVa = false;
-    private GloboTexto globoTextoRef;
-
-    private static final int ANCHO_SPRITESHEET = 320;
-    private static final int ALTO_SPRITESHEET = 160;
-    private static final float POSICION_DESTINO_X = 400f;
+public class Knight extends PeticionarioAnimado {
 
     public Knight(float x, float y) {
-        super("Caballero menor", new Texture("BlackKnight.png"), new MisionCaballero());
-
-        TextureRegion knightRegion = new TextureRegion(getApariencia(), ANCHO_SPRITESHEET, ALTO_SPRITESHEET);
-        TextureRegion[][] temp = knightRegion.split(ANCHO_SPRITESHEET / 10, ALTO_SPRITESHEET / 5);
-
-        TextureRegion[] knightFrames = new TextureRegion[temp[2].length];
-        for (int i = 0; i < temp[2].length; i++) {
-            knightFrames[i] = temp[2][i];
-        }
-
-        knightAnimation = new Animation<TextureRegion>(0.2f, knightFrames);
-
-        int anchoFrame = ANCHO_SPRITESHEET / 10;
-        int altoFrame = ALTO_SPRITESHEET / 5;
-
-        setPosition(x, y);
-        setSize(anchoFrame * 6, altoFrame * 6);
-    }
-
-    public void prepararPeticion(GloboTexto globoTexto) {
-        this.globoTextoRef = globoTexto;
-    }
-
-    @Override
-    public void retirarse() {
-        this.seVa = true;
-        this.seMueve = true;
-        if (globoTextoRef != null) {
-            globoTextoRef.setVisible(false);
-        }
-    }
-
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-        if (seMueve) {
-            stateTime += delta;
-            if (seVa) {
-                setX(getX() - velocidad * delta);
-                if (getX() + getWidth() < 0) {
-                    remove();
-                }
-            } else {
-                float nuevaX = getX() + velocidad * delta;
-                if (nuevaX >= POSICION_DESTINO_X) {
-                    setX(POSICION_DESTINO_X);
-                    seMueve = false;
-                } else {
-                    setX(nuevaX);
-                }
-            }
-        } else {
-            if (globoTextoRef != null) {
-                presentarPeticion(globoTextoRef);
-            }
-        }
-    }
-
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        if (knightAnimation != null) {
-            TextureRegion currentFrame = knightAnimation.getKeyFrame(stateTime, true);
-            if (currentFrame != null) {
-                Color color = getColor();
-                batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
-                float ancho = seVa ? -getWidth() : getWidth();
-                float x = seVa ? getX() + getWidth() : getX();
-                batch.draw(currentFrame, x, getY(), ancho, getHeight());
-                batch.setColor(Color.WHITE);
-            }
-        }
-    }
-
-    public boolean getMovimiento(){
-        return seMueve;
-    }
-
-    public void dispose() {
-        getApariencia().dispose();
+        super(
+            "Caballero menor", new Texture("peticionarios/BlackKnight.png"), new MisionCaballero(), x, y,
+            320, 160, 10, 5, 2, 6f);
     }
 }
+

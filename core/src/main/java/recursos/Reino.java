@@ -15,17 +15,23 @@ public class Reino {
 
     public RecursoLogico get(TipoRecurso tipo) {
         switch (tipo) {
-            case ORO:
-                return oro;
-            case PROVISION:
-                return provision;
-            case SOLDADESCA:
-                return soldadesca;
-            case LEGITIMIDAD:
-                return legitimidad;
-            default:
-                throw new IllegalArgumentException("Recurso no contemplado: " + tipo);
+            case ORO: return oro;
+            case PROVISION: return provision;
+            case SOLDADESCA: return soldadesca;
+            case LEGITIMIDAD: return legitimidad;
+            default: throw new IllegalArgumentException("Recurso no contemplado: " + tipo);
         }
+    }
+
+    public boolean puedePagar(Costo[] costos) {
+        for (TipoRecurso tipo : TipoRecurso.values()) {
+            int total = 0;
+            for (Costo costo : costos) {
+                if (costo.getTipoRecurso() == tipo) total += costo.getCantidad();
+            }
+            if (get(tipo).getCantidad() < total) return false;
+        }
+        return true;
     }
 
     public void sumar(TipoRecurso tipo, int monto) {

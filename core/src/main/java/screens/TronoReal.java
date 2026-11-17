@@ -11,10 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -85,7 +82,7 @@ public class TronoReal extends BaseScreen {
         btnVolverMenu.setPosition(20f, ALTO_ESCENARIO - 60f);
 
         gestorEntrada.setPeticionarioActual(knight);
-        gestorEntrada.aceptarMision(tablaBotones, tablaMisiones, globoTexto, reino);
+        gestorEntrada.aceptarMision(tablaBotones, tablaMisiones, globoTexto, reino, this.stage, skinBasica);
         gestorEntrada.rechazarMision(tablaBotones, tablaMisiones, globoTexto, reino);
         gestorEntrada.volverMenu(game, btnVolverMenu);
 
@@ -127,6 +124,11 @@ public class TronoReal extends BaseScreen {
         buttonStyle.fontColor = Color.WHITE;
         buttonStyle.up = drawableWhite.tint(Color.DARK_GRAY);
         skin.add("default", buttonStyle);
+
+        Window.WindowStyle windowStyle = new Window.WindowStyle();
+        windowStyle.titleFont = skin.getFont("default-font");
+        windowStyle.background = skin.newDrawable("white", Color.DARK_GRAY);
+        skin.add("default", windowStyle);
 
         return skin;
     }

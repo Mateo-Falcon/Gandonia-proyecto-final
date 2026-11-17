@@ -2,7 +2,10 @@ package gestores;
 
 import botones.TablaBotones;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.gandonia.Main;
@@ -16,7 +19,7 @@ import utilidadesUI.GloboTexto;
 public class GestorEntrada {
     private Peticionario peticionarioActual;
 
-    public void aceptarMision(TablaBotones tablaBotones, TablaMisiones tablaMisiones, GloboTexto globoTexto, Reino reino) {
+    public void aceptarMision(TablaBotones tablaBotones, TablaMisiones tablaMisiones, GloboTexto globoTexto, Reino reino, Stage stage, Skin skin) {
         tablaBotones.getBtnAceptar().addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -24,7 +27,13 @@ public class GestorEntrada {
                 final Peticionario peticionario = peticionarioActual;
                 Mision mision = peticionario.getMision();
                 if (mision == null) return;
-
+                if (!reino.puedePagar(mision.getRequisitos())) {
+                    Dialog aviso = new Dialog("Recursos insuficientes", skin);
+                    aviso.text("No tenés recursos suficientes para aceptar esta misión.");
+                    aviso.button("Aceptar");
+                    aviso.show(stage);
+                    return;
+                }
                 mision.aceptarMision(reino);
                 tablaMisiones.mostrarMisionAceptada(mision);
                 peticionario.decir(globoTexto, mision.getRespuestaAceptada());

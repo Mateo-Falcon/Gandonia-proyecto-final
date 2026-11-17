@@ -33,6 +33,9 @@ public abstract class Mision {
     }
 
     public String getTextoPeticion() { return textoPeticion; }
+    public Costo[] getRequisitos() {
+        return requisitos;
+    }
     public String getRespuestaAceptada() { return respuestaAceptada; }
     public String getRespuestaRechazada() { return respuestaRechazada; }
     public void rechazarMision(Reino reino) {
